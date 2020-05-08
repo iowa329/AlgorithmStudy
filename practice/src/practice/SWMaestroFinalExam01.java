@@ -1,0 +1,10 @@
+package practice;
+
+import java.util.Scanner;
+
+public class SWMaestroFinalExam01 {
+	public static void main (String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+	}
+}
