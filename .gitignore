@@ -6,6 +6,9 @@
 
 ### Eclipse ###
 .metadata
+.idea
+.classpath
+.project
 bin/
 tmp/
 *.tmp
