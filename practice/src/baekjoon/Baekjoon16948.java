@@ -39,14 +39,14 @@ public class Baekjoon16948 {
 	
 	// BFS
 	private static int searchCases() { 
-		Queue<knight> que = new LinkedList<knight>();
+		Queue<Knight> que = new LinkedList<Knight>();
 		
 		// 체스말 시작점 설정
-		que.add(new knight(r1, c1, 0));
+		que.add(new Knight(r1, c1, 0));
 		check[r1][c1] = true;
 		
 		while(que.isEmpty() == false) {
-			knight currentKnight = que.poll();
+			Knight currentKnight = que.poll();
 			
 			for(int i=0; i<mobilityR.length; i++) {
 				int destinatonR = currentKnight.currentR + mobilityR[i];
@@ -72,7 +72,7 @@ public class Baekjoon16948 {
 				// 조건을 만족하지 못한 경우 현재 위치를 체크하고
 				check[destinatonR][destinatonC] = true;
 				// 다음 경우의 수로 넘어간다
-				que.add(new knight(destinatonR, destinatonC, destinatonMoveCount));
+				que.add(new Knight(destinatonR, destinatonC, destinatonMoveCount));
 				
 				System.out.println("--->");
 			}
@@ -87,13 +87,13 @@ public class Baekjoon16948 {
 
 
 // BFS node 개념의 체스 말 클래스 정의 
-class knight {
+class Knight {
 	int currentR;
 	int currentC;
 	
 	int nowMoveCount;
 	
-	knight(int r, int c, int cnt) {
+	Knight(int r, int c, int cnt) {
 		currentR = r;
 		currentC = c;
 		
