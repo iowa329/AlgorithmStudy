@@ -47,10 +47,8 @@ public class Baekjoon16928 {
 		System.out.println(result);
 	}
 
-	//BFS
+	// BFS
 	private static int playGame() {
-//		int cntDice = 0;
-		
 		Queue<Player> que = new LinkedList<Player>();
 		que.add(new Player(1, 0));
 		visited[1] = true;
@@ -83,7 +81,6 @@ public class Baekjoon16928 {
 					movePosition = boardInfo[movePosition];
 				}
 				que.add(new Player(movePosition, moveCntDice));					
-				
 				
 			}
 			System.out.println();
