@@ -12,15 +12,14 @@ public class Baekjoon2138 {
 	static int[] toBeLight = new int[n];
 	
 	public static void main(String[] args) {
+		System.out.println("\n");
 		
-		// 전구정보 입력받기
 		// 현재 전구상태
 		String lightInfo = sc.next();
 		for(int i=0; i<n; i++) {
 			currentLight[i] = Character.getNumericValue(lightInfo.charAt(i));
 			System.out.print(currentLight[i]+ " " );
 		}
-		System.out.println();
 		
 		// 목표 전구상태
 		lightInfo = sc.next();
@@ -31,77 +30,63 @@ public class Baekjoon2138 {
 		sc.close();
 		
 		
-		// Greedy
+		// 경우의 수 탐색
+		int[] lightCase;
+		
 		// 첫번째 전구를 켜는 경우
-		int[] turnOnFirstLight = currentLight.clone();
-		turnOnFirstLight[0] = toggleLight(turnOnFirstLight[0]);
-		turnOnFirstLight[1] = toggleLight(turnOnFirstLight[1]);
+		lightCase = currentLight.clone();
 		
-		int turnOnCnt = 1;
-		for(int i=1; i<n-1; i++) {
-			if(turnOnFirstLight[i-1] != toBeLight[i-1]) {
-				turnOnFirstLight[i-1] = toggleLight(turnOnFirstLight[i-1]);
-				turnOnFirstLight[i] = toggleLight(turnOnFirstLight[i]);
-				turnOnFirstLight[i+1] = toggleLight(turnOnFirstLight[i+1]);
-				turnOnCnt++;
-			}
-		}
-		// 마지막 인덱스
-		int lastIndex = n-1;
-		if(turnOnFirstLight[lastIndex-1] != toBeLight[lastIndex-1]) {
-			turnOnFirstLight[lastIndex-1] = toggleLight(turnOnFirstLight[lastIndex-1]);
-			turnOnFirstLight[lastIndex] = toggleLight(turnOnFirstLight[lastIndex]);
-			turnOnCnt++;
-		}
-		// 전구를 켜본 결과 마지막 전구가 만들고자 하는 상태가 아닌경우
-		if(turnOnFirstLight[lastIndex] != toBeLight[lastIndex]) {
-			turnOnCnt = -1;
-		}
+		lightCase[0] = toggleLight(lightCase[0]);
+		lightCase[1] = toggleLight(lightCase[1]);
+		
+		int turnOnFirstCnt = light(lightCase, 1);
 		
 		
-
 		// 첫번째 전구를 켜지 않는 경우
-		int[] turnOffFirstLight = currentLight.clone();
-		
-		int turnOffCnt = 0;
-		for(int i=1; i<n-1; i++) {
-			if(turnOnFirstLight[i-1] != toBeLight[i-1]) {
-				turnOffFirstLight[i-1] = toggleLight(turnOffFirstLight[i-1]);
-				turnOffFirstLight[i] = toggleLight(turnOffFirstLight[i]);
-				turnOffFirstLight[i+1] = toggleLight(turnOffFirstLight[i+1]);
-				turnOffCnt++;
-			}
-		}
-		// 마지막 인덱스
-		lastIndex = n-1;
-		if(turnOffFirstLight[lastIndex-1] != toBeLight[lastIndex-1]) {
-			turnOffFirstLight[lastIndex-1] = toggleLight(turnOffFirstLight[lastIndex-1]);
-			turnOffFirstLight[lastIndex] = toggleLight(turnOffFirstLight[lastIndex]);
-			turnOffCnt++;
-		}
-		// 전구를 켜본 결과 마지막 전구가 만들고자 하는 상태가 아닌경우
-		if(turnOffFirstLight[lastIndex] != toBeLight[lastIndex]) {
-			turnOffCnt = -1;
-		}
+		lightCase = currentLight.clone();
+		int turnOffFirstCnt = light(lightCase, 0);
 		
 		
+		// 최소 스위치 횟수 찾기
 		int answer = 0;
-		if(turnOnCnt != -1 && turnOffCnt != -1) {
-			if(turnOnCnt < turnOffCnt) {
-				answer = turnOnCnt;
-			} else {
-				answer = turnOffCnt;
-			}
-		} else if(turnOnCnt != -1){
-			answer = turnOnCnt;
-		} else if(turnOffCnt != -1) {
-			answer = turnOffCnt;
-		} else {
+		if(turnOnFirstCnt == -1 && turnOffFirstCnt == -1) {
 			answer = -1;
+		} else if(turnOnFirstCnt != -1 && turnOffFirstCnt != -1) {
+			answer = turnOnFirstCnt < turnOffFirstCnt ? turnOnFirstCnt : turnOffFirstCnt;
+		} else {
+			answer = turnOnFirstCnt != -1 ? turnOnFirstCnt : turnOffFirstCnt;
 		}
 
-		
+		// 결과
 		System.out.println("\n\n" + answer);
+	}
+	
+	// Greedy
+	private static int light(int[] targetCaseLight, int lightCnt) {
+		int lastIndex = n-1;
+		
+		for(int i=1; i<n; i++) {
+			// 현재 인덱스 이전 전구가 만들고자 하는 전구가 아닐경우
+			if(targetCaseLight[i-1] != toBeLight[i-1]) {
+				if(i != lastIndex) {
+					targetCaseLight[i-1] = toggleLight(targetCaseLight[i-1]);
+					targetCaseLight[i] = toggleLight(targetCaseLight[i]);
+					targetCaseLight[i+1] = toggleLight(targetCaseLight[i+1]);					
+				} else {
+					// 마지막 인덱스
+					targetCaseLight[i-1] = toggleLight(targetCaseLight[i-1]);
+					targetCaseLight[i] = toggleLight(targetCaseLight[i]);
+				}
+				lightCnt++;
+			}
+		}
+		
+		// 마지막 전구가 만들고자 하는 상태가 아닌경우
+		if(targetCaseLight[lastIndex] != toBeLight[lastIndex]) {
+			lightCnt = -1;
+		}
+		
+		return lightCnt;
 	}
 	
 	private static int toggleLight(int lightInfo) {
@@ -109,3 +94,97 @@ public class Baekjoon2138 {
 	}
 
 }
+
+
+// 제출코드
+
+//import java.util.*;
+//
+//public class Main {
+//
+//	static Scanner sc = new Scanner(System.in);
+//	
+//	static int n = sc.nextInt();
+//	
+//	static int[] currentLight = new int[n];
+//	static int[] toBeLight = new int[n];
+//	
+//	public static void main(String[] args) {
+//		// 현재 전구상태
+//		String lightInfo = sc.next();
+//		for(int i=0; i<n; i++) {
+//			currentLight[i] = Character.getNumericValue(lightInfo.charAt(i));
+//		}
+//		
+//		// 목표 전구상태
+//		lightInfo = sc.next();
+//		for(int i=0; i<n; i++) {
+//			toBeLight[i] = Character.getNumericValue(lightInfo.charAt(i));
+//		}
+//		sc.close();
+//		
+//		
+//		// 경우의 수 탐색
+//		int[] lightCase;
+//		
+//		// 첫번째 전구를 켜는 경우
+//		lightCase = currentLight.clone();
+//		
+//		lightCase[0] = toggleLight(lightCase[0]);
+//		lightCase[1] = toggleLight(lightCase[1]);
+//		
+//		int turnOnFirstCnt = light(lightCase, 1);
+//		
+//		
+//		// 첫번째 전구를 켜지 않는 경우
+//		lightCase = currentLight.clone();
+//		int turnOffFirstCnt = light(lightCase, 0);
+//		
+//		
+//		// 최소 스위치 횟수 찾기
+//		int answer = 0;
+//		if(turnOnFirstCnt == -1 && turnOffFirstCnt == -1) {
+//			answer = -1;
+//		} else if(turnOnFirstCnt != -1 && turnOffFirstCnt != -1) {
+//			answer = turnOnFirstCnt < turnOffFirstCnt ? turnOnFirstCnt : turnOffFirstCnt;
+//		} else {
+//			answer = turnOnFirstCnt != -1 ? turnOnFirstCnt : turnOffFirstCnt;
+//		}
+//
+//		// 결과
+//		System.out.println(answer);
+//	}
+//	
+//	// Greedy
+//	private static int light(int[] targetCaseLight, int lightCnt) {
+//		int lastIndex = n-1;
+//		
+//		for(int i=1; i<n; i++) {
+//			// 현재 인덱스 이전 전구가 만들고자 하는 전구가 아닐경우
+//			if(targetCaseLight[i-1] != toBeLight[i-1]) {
+//				if(i != lastIndex) {
+//					targetCaseLight[i-1] = toggleLight(targetCaseLight[i-1]);
+//					targetCaseLight[i] = toggleLight(targetCaseLight[i]);
+//					targetCaseLight[i+1] = toggleLight(targetCaseLight[i+1]);					
+//				} else {
+//					// 마지막 인덱스
+//					targetCaseLight[i-1] = toggleLight(targetCaseLight[i-1]);
+//					targetCaseLight[i] = toggleLight(targetCaseLight[i]);
+//				}
+//				lightCnt++;
+//			}
+//		}
+//		
+//		// 마지막 전구가 만들고자 하는 상태가 아닌경우
+//		if(targetCaseLight[lastIndex] != toBeLight[lastIndex]) {
+//			lightCnt = -1;
+//		}
+//		
+//		return lightCnt;
+//	}
+//	
+//	private static int toggleLight(int lightInfo) {
+//		return lightInfo = lightInfo == 0 ? 1 : 0;
+//	}
+//
+//}
