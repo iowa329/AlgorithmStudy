@@ -84,7 +84,7 @@ public class Baekjoon10816 {
 	// 찾고자 하는 카드 중 가장 낮은 index 찾기
 	private static int findLowestIndex(int cardList[], int card) {
 		int lower = 0;
-		int higher = cardList.length;
+		int higher = cardList.length; // 상한인 max에서는 -> 찾고자 하는 값을 초과하는 '첫 위치'를 기준으로 시작
 		
 		while (lower < higher) { // 하한과 상한이 같아질 때(하한이 상한보다 높을 수는 없으므로) 탐색을 종료
 			int mid = (lower + higher) / 2;
@@ -104,10 +104,10 @@ public class Baekjoon10816 {
 	// 찾고자 하는 카드 중 가장 높은 index 찾기
 	private static int findHighestIndex(int cardList[], int card) {
 		int lower = 0;
-		int higher = cardList.length;
+		int higher = cardList.length; // 상한인 max에서는 -> 찾고자 하는 값을 초과하는 '첫 위치'를 기준으로 시작
 		
 		while (lower < higher) { // 하한과 상한이 같아질 때(하한이 상한보다 높을 수는 없으므로) 탐색을 종료
-			int mid = ((lower + higher) / 2);// + ((lower + higher) % 2);
+			int mid = ((lower + higher) / 2);
 			
 			if(card < cardList[mid]) { // key값이 중앙값보다 작을 때  
 				higher = mid;
