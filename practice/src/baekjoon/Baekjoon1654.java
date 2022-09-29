@@ -35,7 +35,7 @@ public class Baekjoon1654 {
 					cntLans += lans[i] / mid;
 				}
 				
-				System.out.println(min + " " + max + " " + mid + " "+ cntLans + " ");
+				System.out.println(min + " " + mid + " " + max + " "+ cntLans + " ");
 				
 				if(cntLans < n) { // 자른 선의 개수가 부족하면 길이를 줄여야 하므로
 					max = mid - 1;
