@@ -8,7 +8,7 @@ public class Baekjoon11652 {
 		// 값 입력받기
 		Scanner sc = new Scanner(System.in);
 
-		// Long형의 범위는 2^64 -1 (-2,147,483,648 ~ 2,147,483,647)
+		// Long형의 범위는 2^64 -1 (-9,223,372,036,854,775,808 ~ 9,223,372,036,854,775,807)
 		long maxNum = Long.MAX_VALUE;
 		long maxCnt = 0L;
 
