@@ -32,7 +32,7 @@ public class Baekjoon1561 {
 			// 만약 탑승인원이 놀이기구 수보다 같거나 적은 경우
 			lastRideNumber = n;
 		} else {
-			// 탑승인원이 놀이기구 보다 많은 경우 전체 탑승시간 이분탐색
+			// 탑승인원이 놀이기구 보다 많은 경우 전체 탑승시간에 대해 이분탐색
 			timeAllKidsRide = binarySearch();
 			
 			// 전원 탑승 직전시간(1분 전) 아이들 수
@@ -91,7 +91,7 @@ public class Baekjoon1561 {
 	private static long howManyKidsInTime(long time) {
 		long kids = m; // 맨 처음에는 m개의 놀이기구에 전부 탑승
 		for(int i=1; i<=m; i++) {
-			// (시간 / 탑승시간)의 몫은 해당 시간(time)에 대해 탑승가능한 총 인원이다
+			// (시간 / 탑승시간)의 몫은 해당 시간(time)에 대해 해당 놀이기구에 탑승가능한 총 인원이다
 			kids += time / rideTimes[i];
 		}
 		
