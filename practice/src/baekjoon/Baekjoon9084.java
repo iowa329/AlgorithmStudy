@@ -26,7 +26,7 @@ public class Baekjoon9084 {
 			for(int i=1; i<=n; i++) {
 				int coin = Integer.parseInt(strTkr.nextToken());
 				
-				// 1~m 까지 금액에 대해 오름차순 coin이 순서대로 조합의 수를 누적 저장
+				// 1~m 까지 금액에 대해 (오름차순으로 주어진)coin의 조합의 수를 누적(이전 coin의 조합의 수) 저장
 				for(int amount=coin; amount<=m; amount++) // coin 이하의 액수에서는 coin의 조합이 불가능하므로 coin부터 범위 시작
 					dp[amount] += dp[amount - coin]; // coin 차이만큼의 이전 조합 개수가 현재 금액에 대한 coin의 조합개수와 동일하다
 			}
