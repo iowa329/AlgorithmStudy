@@ -20,34 +20,53 @@ public class Baekjoon5212 {
 		}
 		br.close();
 		
-		// 상하좌우
-		int[] moveX = {-1, 1, 0, 0};
-		int[] moveY = {0, 0, -1, 1};
 		for(int x=0; x<r; x++) {
 			for(int y=0; y<c; y++) {
 				int ocean = 0;
 				
-				// 상하좌우 탐색
-				for(int i=0; i<4; i++) {
-					int movedX = x + moveX[i];
-					int movedY = y + moveY[i];
-					
-					if(movedX < 0 || r <= movedX || 
-						movedY < 0 || c <= movedY) {
-						ocean++;
-					} else if(map[movedX][movedY] == '.') {
-						ocean++;
+				// 섬일 경우
+//				if(map[x][y] == 'X') {
+					// 상하좌우 탐색
+					int[] moveX = {-1, 1, 0, 0};
+					int[] moveY = {0, 0, -1, 1};
+					for(int i=0; i<4; i++) {
+						int movedX = x + moveX[i];
+						int movedY = y + moveY[i];
+						
+						if(movedX < 0 || r <= movedX || 
+							movedY < 0 || c <= movedY) {
+							ocean++;
+						} else if(map[movedX][movedY] == '.') {
+							ocean++;
+						}
+						
+						// 주변에 바다가 3개 이상이면
+						if(ocean >= 3) {
+							map[x][y] = '-'; // 침몰표시
+							break; // 더 이상의 상하좌우 탐색이 필요 없으므로 종료
+						}
 					}
-					
-					// 주변에 바다가 3개 이상이면
-					if(ocean >= 3) {
-						map[x][y] = '-'; // 침몰표시
-						break; // 상하좌우 탐색이 필요없으므로 종료
-					}
-				}
+//				}
 			}
 		}
 		
+		
+		
+		System.out.println();
+		for(int x=0; x<r; x++) {
+//			System.out.println(map[x].toString());
+			for(int y=0; y<c; y++) {
+				System.out.print(map[x][y]);
+			}
+			System.out.println();
+		}
+		System.out.println();
+		
+		
+		
+		
+		
+		// 침몰 후 섬을 표기한 최소한의 지도범위 탐색
 		int startX = 10;
 		int endX = 0;
 		int startY = 10;
@@ -65,6 +84,7 @@ public class Baekjoon5212 {
 			}
 		}
 		
+		// 50년 후 지도출력
 		StringBuilder sb = new StringBuilder();
 		for(int x=startX; x<=endX; x++) {
 			for(int y=startY; y<=endY; y++) {
