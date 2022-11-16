@@ -25,7 +25,7 @@ public class Baekjoon5212 {
 				int ocean = 0;
 				
 				// 섬일 경우
-//				if(map[x][y] == 'X') {
+				if(map[x][y] == 'X') {
 					// 상하좌우 탐색
 					int[] moveX = {-1, 1, 0, 0};
 					int[] moveY = {0, 0, -1, 1};
@@ -46,7 +46,7 @@ public class Baekjoon5212 {
 							break; // 더 이상의 상하좌우 탐색이 필요 없으므로 종료
 						}
 					}
-//				}
+				}
 			}
 		}
 		
