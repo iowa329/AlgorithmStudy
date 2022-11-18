@@ -54,8 +54,6 @@ public class Baekjoon20057 {
 					curR += moveX[rotationOrder];
 					curC += moveY[rotationOrder];
 					
-					System.out.println("cur(R, C): (" + curR + ", " + curC + "), value: " + a[curR][curC]);
-					
 					int leftSand = spreadSand(curR, curC);
 					int toSpreadX = curR+moveX[rotationOrder];
 					int toSpreadY = curC+moveY[rotationOrder];
@@ -68,15 +66,11 @@ public class Baekjoon20057 {
 						// 모래밭 안
 						a[toSpreadX][toSpreadY] += leftSand;
 					}
-					
-					printCurSandField(curR, curC);
 				}
 				
 				// 방향전환 (0~3 index 순환)
 				rotationOrder = rotationOrder != 3 ? rotationOrder+1 : 0;
 				rotateSpreadInfo();
-				
-				System.out.println("\nrotation");
 			}
 			
 			curN++;
@@ -92,18 +86,9 @@ public class Baekjoon20057 {
 		
 		for(int xA=curR-2; xA<=curR+2; xA++) {
 			for(int yA=curC-2; yA<=curC+2; yA++) {
-				double percentage = spreadSandInfo[xA-(curR-2)][yA-(curC-2)] / 100;
+				int spreadSand = curSand * spreadSandInfo[xA-(curR-2)][yA-(curC-2)] / 100;
 				
-				
-				 
-//				int spreadSand = curSand * (percentage / 100);
-				double spreadSand = curSand * percentage;
 				leftSand -= spreadSand;
-				
-				System.out.print(percentage + "<<percentage ");
-				System.out.print(spreadSand + "<<spreadSand ");
-				System.out.print(curSand + "<<curSand \n");
-				
 				// 모래밭 밖
 				if(xA < 1 || n < xA ||
 				   yA < 1 || n < yA) {
@@ -113,13 +98,7 @@ public class Baekjoon20057 {
 					a[xA][yA] += spreadSand;
 				}
 			}
-			
-			System.out.println();
-			
 		}
-		
-		System.out.println("%%%%");
-		
 		a[curR][curC] = 0; // y칸에 있는 모래는 모두 날아간다
 		
 		return leftSand;
@@ -136,6 +115,7 @@ public class Baekjoon20057 {
 		spreadSandInfo = afterRotate;
 	}
 	
+	// 토네이도 진행상황 확인용 프린트 함수
 	private static void printCurSandField(int curR, int curC) {
 		for(int x=1; x<=n; x++) {
 			for(int y=1; y<=n; y++) {
