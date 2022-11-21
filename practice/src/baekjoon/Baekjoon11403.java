@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Baekjoon11403 {
 
+	// 플로이드–워셜 알고리즘
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
