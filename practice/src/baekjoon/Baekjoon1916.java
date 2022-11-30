@@ -43,6 +43,7 @@ public class Baekjoon1916 {
 			
 			m--;
 		}
+		br.close();
 		
 		// 구하고자 하는 도시 출발점, 도착점 번호
 		StringTokenizer strTkr = new StringTokenizer(br.readLine());

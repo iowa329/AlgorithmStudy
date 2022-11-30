@@ -45,6 +45,7 @@ public class Baekjoon1753 {
 			
 			E--;
 		}
+		br.close();
 		
 		// 다익스트라(Dijkstra) 알고리즘
 		PriorityQueue<Graph> pq = new PriorityQueue<>();
