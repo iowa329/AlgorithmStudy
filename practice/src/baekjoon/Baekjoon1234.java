@@ -19,7 +19,7 @@ public class Baekjoon1234 {
 		int numberOfGreen = Integer.parseInt(strTkr.nextToken());
 		int numberOfBlue = Integer.parseInt(strTkr.nextToken());
 		
-		for(int i=1; i<11; i++)
+		for(int i=2; i<11; i++)
 			factorial[i] = i * factorial[i-1];
 		
 //		int needToDecorateToys = n * (n+1) / 2;
@@ -46,24 +46,24 @@ public class Baekjoon1234 {
 		
 		// 3가지 색상을 칠하는 방법은 총 7가지
 		// 1가지 색으로 칠할 때
-		dp[level][r][g][b] += makeChristmasTree(level-1, r-level, g, b);
-		dp[level][r][g][b] += makeChristmasTree(level-1, r, g-level, b);
-		dp[level][r][g][b] += makeChristmasTree(level-1, r-level, g, b-level);
+		dp[level][r][g][b] += makeChristmasTree(level+1, r-level, g, b);
+		dp[level][r][g][b] += makeChristmasTree(level+1, r, g-level, b);
+		dp[level][r][g][b] += makeChristmasTree(level+1, r-level, g, b-level);
 		
 		// 같은 색에 해당하는 중복만 제외
 		// -> 레벨에 장식하려는 모든 경우의 수 / (빨간색끼리 장식하는 경우의 수 * 초록색끼리 장식하는 경우의 수 * 파란색끼리 장식하는 경우의 수)
 		// 2가지 색으로 칠할 때
 		if(level % 2 == 0) {
-			dp[level][r][g][b] += makeChristmasTree(level-1, r-(level/2), g-(level/2), b) * ( factorial[level] / (factorial[level/2] * factorial[level/2]) );
-			dp[level][r][g][b] += makeChristmasTree(level-1, r, g-(level/2), b-(level/2)) * ( factorial[level] / (factorial[level/2] * factorial[level/2]) );
-			dp[level][r][g][b] += makeChristmasTree(level-1, r-(level/2), g, b-(level/2)) * ( factorial[level] / (factorial[level/2] * factorial[level/2]) );
+			dp[level][r][g][b] += makeChristmasTree(level+1, r-(level/2), g-(level/2), b) * ( factorial[level] / (factorial[level/2] * factorial[level/2]) );
+			dp[level][r][g][b] += makeChristmasTree(level+1, r, g-(level/2), b-(level/2)) * ( factorial[level] / (factorial[level/2] * factorial[level/2]) );
+			dp[level][r][g][b] += makeChristmasTree(level+1, r-(level/2), g, b-(level/2)) * ( factorial[level] / (factorial[level/2] * factorial[level/2]) );
 		}
 		
 		// 3가지 색으로 칠할 때
 		if(level % 3 == 0) {
-			dp[level][r][g][b] += makeChristmasTree(level-1, r-(level/3), g-(level/3), b-(level/3)) * ( factorial[level] / (factorial[level/3] * factorial[level/3] * factorial[level/3]) );
-			dp[level][r][g][b] += makeChristmasTree(level-1, r-(level/3), g-(level/3), b-(level/3)) * ( factorial[level] / (factorial[level/3] * factorial[level/3] * factorial[level/3]) );
-			dp[level][r][g][b] += makeChristmasTree(level-1, r-(level/3), g-(level/3), b-(level/3)) * ( factorial[level] / (factorial[level/3] * factorial[level/3] * factorial[level/3]) );
+			dp[level][r][g][b] += makeChristmasTree(level+1, r-(level/3), g-(level/3), b-(level/3)) * ( factorial[level] / (factorial[level/3] * factorial[level/3] * factorial[level/3]) );
+			dp[level][r][g][b] += makeChristmasTree(level+1, r-(level/3), g-(level/3), b-(level/3)) * ( factorial[level] / (factorial[level/3] * factorial[level/3] * factorial[level/3]) );
+			dp[level][r][g][b] += makeChristmasTree(level+1, r-(level/3), g-(level/3), b-(level/3)) * ( factorial[level] / (factorial[level/3] * factorial[level/3] * factorial[level/3]) );
 		}
 		
 		return dp[level][r][g][b];
