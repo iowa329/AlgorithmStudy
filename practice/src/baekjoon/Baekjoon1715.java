@@ -17,7 +17,7 @@ public class Baekjoon1715 {
 		br.close();
 		
 		long totalCntCompare = 0;
-		// 비교할 카트가 최소 2장이 남을때까지 반복
+		// 비교할 카드가 최소 2장이 남을때까지 반복
 		while(pq.size() >= 2) {
 			long card1 = pq.poll();
 			long card2 = pq.poll();
