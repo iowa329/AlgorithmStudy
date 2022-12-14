@@ -10,6 +10,13 @@ class Board {
 		this.x = x;
 		this.y = y;
 	}
+	
+	// 덱(deque)의 contains함수의 작동을 위해 equals를 오버라이딩
+	@Override
+	public boolean equals(Object obj) {
+		Board board = (Board) obj;
+		return x == board.x && y == board.y;
+	}
 }
 
 public class Baekjoon3190 {
@@ -63,18 +70,24 @@ public class Baekjoon3190 {
 			int toGoX = snake.peekFirst().x + moveX[directionIndex];
 			int toGoY = snake.peekFirst().y + moveY[directionIndex];
 			Board toGoBoard = new Board(toGoX, toGoY);
+			
 			// 벽 혹은 자기자신과 부딪힌 경우
 			if(toGoX < 1 || n < toGoX ||
 			   toGoY < 1 || n < toGoY ||
-			   snake.contains(toGoBoard)) {
+			   snake.contains(toGoBoard)) { // obj 값 비교를 위해 Board클래스에서 equals를 오버라이딩
 				break;
 			} else {
 				// 벽 안이고 자기자신이 없어 움직일 수 있는 경우
 				snake.addFirst(toGoBoard);
 				
-				// 사과가 없는 경우
-				if(isHaveApple[toGoX][toGoY] == false)
+				// 사과가 있는 경우
+				if(isHaveApple[toGoX][toGoY]) {
+					isHaveApple[toGoX][toGoY] = false;
+				} else {
+					// 사과가 없는 경우
 					snake.removeLast(); // 꼬리칸을 비워준다
+				}
+					
 			}
 			
 			// X초가 끝난뒤에 90도 방향 회전
@@ -85,9 +98,7 @@ public class Baekjoon3190 {
 				} else if(changeDirection == 'D') {
 					directionIndex = directionByD[directionIndex];
 				}
-	
 			}
-
 		}
 		
 		// 게임 플레이 시간
@@ -95,24 +106,3 @@ public class Baekjoon3190 {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
