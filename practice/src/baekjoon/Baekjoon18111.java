@@ -10,14 +10,14 @@ public class Baekjoon18111 {
 		StringTokenizer strTkr = new StringTokenizer(br.readLine());
 		int n = Integer.parseInt(strTkr.nextToken());
 		int m = Integer.parseInt(strTkr.nextToken());
-		int b = Integer.parseInt(strTkr.nextToken());
+		int b = Integer.parseInt(strTkr.nextToken()); // 인벤토리 블록개수
 		
 		int[] cnt = new int[256+1];
 		for(int i=0; i<n; i++) {
 			strTkr = new StringTokenizer(br.readLine());
 			for(int j=0; j<m; j++) {
-				int block = Integer.parseInt(strTkr.nextToken());
-				cnt[block]++;
+				int stair = Integer.parseInt(strTkr.nextToken());
+				cnt[stair]++;
 			}
 		}
 		br.close();
@@ -26,7 +26,6 @@ public class Baekjoon18111 {
 		int landHeight = 0;
 		BaseLoop:
 		for(int baseHeight=256; baseHeight>=0; baseHeight--) {
-
 			int curInventory = b;
 			int duringTime = 0;
 			
@@ -44,7 +43,7 @@ public class Baekjoon18111 {
 			
 			// 2번 작업(인벤토리에서 꺼내서 블록 위에 놓기)
 			int toRemoveInventory = 0;
-			for(int searchHeight=baseHeight-1; searchHeight>0; searchHeight--) {
+			for(int searchHeight=baseHeight; searchHeight>=0; searchHeight--) {
 				// 해당 층이 존재하는 경우
 				if(cnt[searchHeight] != 0) {
 					int gap = baseHeight - searchHeight;
@@ -54,7 +53,7 @@ public class Baekjoon18111 {
 			
 			// 인벤토리 안에서 모두 꺼낼 수 있는지 확인
 			if(toRemoveInventory > curInventory) // 불가능하다면
-				continue BaseLoop; // 해당 BaseHeight는 안된다는 의미이므로 무시
+				continue BaseLoop; // 해당 baseHeight는 안된다는 의미이므로 무시
 			
 			// 모두 꺼낼 수 있다면
 			curInventory -= toRemoveInventory;
@@ -65,7 +64,6 @@ public class Baekjoon18111 {
 				minTime = duringTime;
 				landHeight = baseHeight;
 			}
-			
 		}
 		
 		// 최소시간과 해당 높이 출력
