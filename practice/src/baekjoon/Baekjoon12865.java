@@ -21,17 +21,17 @@ public class Baekjoon12865 {
 		br.close();
 		
 		int[][] dp = new int[k+1][n+1]; // 넣을 수 있는 무게의 최대 가치값 dp배열 선언
-		for(int serachWeight=1; serachWeight<=k; serachWeight++) { // 버틸 수 있는 최대 무게 k
+		for(int searchWeight=1; searchWeight<=k; searchWeight++) { // 버틸 수 있는 최대 무게 k
 			for(int searchIndex=1; searchIndex<=n; searchIndex++) { // 탐색할 물건 1~n개까지
 				int curIndexWeight = w[searchIndex];
 				int curIndexValue = v[searchIndex];
-				int beforeIndexValue = dp[serachWeight][searchIndex-1];
+				int beforeIndexValue = dp[searchWeight][searchIndex-1];
 				// 무게를 더 담을 수 없는 경우
-				if(curIndexWeight > serachWeight) {
-					dp[serachWeight][searchIndex] = beforeIndexValue;
+				if(curIndexWeight > searchWeight) {
+					dp[searchWeight][searchIndex] = beforeIndexValue;
 				} else {
 					// 무게를 더 담을 수 있는 경우
-					dp[serachWeight][searchIndex] = Math.max(beforeIndexValue, curIndexValue + dp[serachWeight-curIndexWeight][searchIndex-1]);
+					dp[searchWeight][searchIndex] = Math.max(beforeIndexValue, curIndexValue + dp[searchWeight-curIndexWeight][searchIndex-1]);
 				}
 			}
 		}
