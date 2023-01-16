@@ -42,8 +42,8 @@ public class BlindRecruitment23_개인정보_수집_유효기간 {
 			int privacyNum = dateConverter(privacy[0]);
 			int vaildation = termsHashMap.get(privacy[1]) * 28 - 1;
 			
-			int targetDate = privacyNum + vaildation;			
-			if(targetDate < todayNum) {
+			int expireDate = privacyNum + vaildation;			
+			if(expireDate < todayNum) {
 				expireList.add(i+1);
 			}
 		}
