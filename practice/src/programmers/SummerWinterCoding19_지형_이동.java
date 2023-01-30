@@ -19,7 +19,6 @@ public class SummerWinterCoding19_지형_이동 {
 			this.end = end;
 			this.cost = cost;
 		}
-
 	}
 	
 	static class Land {
@@ -32,7 +31,7 @@ public class SummerWinterCoding19_지형_이동 {
 	}
 	
 	static int n;
-	static int[][] visited;
+	static int[][] groups;
 	
 	// 상하좌우 배열 정의
 	static int[] moveX = {-1, 1, 0, 0};
@@ -43,12 +42,12 @@ public class SummerWinterCoding19_지형_이동 {
 	public static int solution(int[][] land, int height) {
 		// 1. BFS로 영역 그룹짓기
 		n = land.length;
-        visited = new int[n][n];
+        groups = new int[n][n];
         
         int groupIndex = 1;
 		for(int i=0; i<n; i++) {
 			for(int j=0; j<n; j++) {
-				if(visited[i][j] == 0) {
+				if(groups[i][j] == 0) {
 					grouping(i, j, land, height, groupIndex);
 					groupIndex++;
 				}
@@ -66,8 +65,8 @@ public class SummerWinterCoding19_지형_이동 {
 					// 배열 범위 안만 검사
 					if(0 <= movedX && movedX < n &&
 						0 <= movedY && movedY < n) {
-						int group1 = visited[x][y];
-						int group2 = visited[movedX][movedY];
+						int group1 = groups[x][y];
+						int group2 = groups[movedX][movedY];
 
 						// 두 land가 다른 그룹이라면
 						if(group1 != group2) {
@@ -92,6 +91,7 @@ public class SummerWinterCoding19_지형_이동 {
 			parent[i] = i;
 		
 		int answer = 0;
+		int cntLadder = 0;
 		for(Ladder ladder: ladders) {
 			int rootGroupStart = findParent(ladder.start);
 			int rootGroupEnd= findParent(ladder.end);
@@ -100,7 +100,13 @@ public class SummerWinterCoding19_지형_이동 {
 			if(rootGroupStart != rootGroupEnd) {
 				parent[rootGroupEnd] = rootGroupStart;
 				answer += ladder.cost;
+				
+				cntLadder++;
 			}
+			
+			// 최소비용으로 놓을 수 있는 사다리 개수는 group-1(ex. n개의 정점에 대한 간선 n-1개) 
+			if(cntLadder >= groupIndex-2) // 비용(cost) 기준 오름차순 정렬이므로 사다리 개수에 도달할 경우 바로 종료
+				break;
 		}
 		
         return answer;
@@ -113,6 +119,7 @@ public class SummerWinterCoding19_지형_이동 {
 		
 		while(que.isEmpty() == false) {
 			Land curLand = que.poll();
+			groups[curLand.x][curLand.y] = groupIndex;
 			
 			for(int move=0; move<4; move++) {
 				int movedX = curLand.x + moveX[move];
@@ -123,10 +130,10 @@ public class SummerWinterCoding19_지형_이동 {
 					0 <= movedY && movedY < n) {
 					
 					// 그룹짓지 않았고 두 사다리의 격차가 기준 height 이하라면
-					if(visited[movedX][movedY] == 0 &&
+					if(groups[movedX][movedY] == 0 &&
 						Math.abs(land[curLand.x][curLand.y] - land[movedX][movedY]) <= height) {
 						
-						visited[movedX][movedY] = groupIndex;
+						groups[movedX][movedY] = groupIndex;
 						que.add(new Land(movedX, movedY));
 					}
 				}
@@ -142,35 +149,3 @@ public class SummerWinterCoding19_지형_이동 {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
