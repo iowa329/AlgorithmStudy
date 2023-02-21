@@ -47,10 +47,9 @@ public class BlindRecruitment19_후보키 {
     }
 	
 	private static boolean check(ArrayList<Integer> keyList, int curBitCombi) {
-		for(int key: keyList) {
+		for(int key: keyList)
 			if( (key & curBitCombi) == key)
 				return false;
-		}
 		
 		return true;
 	}
