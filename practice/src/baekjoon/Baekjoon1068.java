@@ -63,6 +63,13 @@ public class Baekjoon1068 {
 	}
 	
 	private static void findLeafNode(ArrayList<Integer> targetChildList) {
+		// 루투노드만 남는 경우
+		if(targetChildList.size() == 0) {
+			cntLeafNodes++;
+			return;
+		}
+		
+		// 하위 노드 탐색
 		for(int node: targetChildList) {
 			if(childList[node].size() == 0) {
 				cntLeafNodes++;
