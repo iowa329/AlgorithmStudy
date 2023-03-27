@@ -45,7 +45,7 @@ public class Baekjoon17471 {
 		
 		// 선거구 획정(게리멘터링) 시작
 		ArrayList<Integer> list = new ArrayList<>();
-		for(int i=1; i<=n/2; i++) {
+		for(int i=1; i<=n; i++) {
 			System.out.println("\n<<<<<<<<<start " + i);
 			combination(1, i, list);
 		}
@@ -80,6 +80,9 @@ public class Baekjoon17471 {
 	
 	// 선거구 유효성 검사
 	private static boolean isAvailable(ArrayList<Integer> result) {
+		if(result.isEmpty())
+			return true;
+		
 		// BFS
 		boolean[] visited = new boolean[n+1];
 		Queue<Integer> que = new LinkedList<>();
