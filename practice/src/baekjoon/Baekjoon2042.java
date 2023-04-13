@@ -54,6 +54,7 @@ public class Baekjoon2042 {
 				continue;
 			}
 		}
+		br.close();
 		
 		// 결과출력
 		System.out.println(sb.toString());
