@@ -67,14 +67,12 @@ public class Baekjoon2233 {
 		
 		// 제거해야 할 사과노드 번호의 이진수 위치(0, 1)값 작성
 		StringBuilder sb = new StringBuilder();
-		int cnt = 0;
 		for(int i=0; i<nodeNumHistory.length; i++) {
-			if(cnt == 2)
-				break;
-			
 			if(nodeNumHistory[i] == toRemoveApple) {
 				sb.append(i + 1 + " ");
-				cnt++;
+				
+				if(binaryRoute.charAt(i) == '1')
+					break;
 			}
 		}
 		
