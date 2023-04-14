@@ -6,7 +6,7 @@ import java.util.*;
 // 사과나무
 public class Baekjoon2233 {
 
-	// 스택(Stack), 가장 가까운 공통 조상(Nearest Common Anscestor)
+	// 스택(Stack), (가장 가까운)최소 공통 조상 LCA(Lowest Common Ancestor) 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
