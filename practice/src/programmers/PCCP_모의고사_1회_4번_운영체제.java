@@ -3,7 +3,7 @@ package programmers;
 import java.util.*;
 
 // 운영체제
-public class PCCP_모의고사_1회_4번 {
+public class PCCP_모의고사_1회_4번_운영체제 {
 
 	public static void main(String[] args) {
 //		a는 프로그램의 점수를 의미하며, 1 ≤ a ≤ 10 을 만족합니다.
